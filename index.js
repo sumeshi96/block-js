@@ -5,28 +5,28 @@ const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 //ボールの初期値
-var ballRadius = 10;
+var ballRadius = canvas.width / 100;
 var x = canvas.width / 2;
 var y = canvas.height - 30;
-var dx = 2;
-var dy = -2;
+var dx = canvas.width / 240;
+var dy = canvas.width / 240;
 //パドルの初期値
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width - paddleWidth) / 2;
-var rightPressed = false;
-var leftPressed = false;
+let paddleHeight = canvas.height / 48;
+let paddleWidth = canvas.width / 6.4;
+let paddleX = (canvas.width - paddleWidth) / 2;
+let rightPressed = false;
+let leftPressed = false;
 //ブロックの初期値
-var blockRowCount = 5;
-var blockColumnCount = 3;
-var blockWidth = 75;
-var blockHeight = 20;
-var blockPadding = 10;
-var blockOffsetTop = 30;
-var blockOffsetLeft = 30;
+let blockRowCount = 5;
+let blockColumnCount = 3;
+let blockWidth = canvas.width / 6.4;
+let blockHeight = canvas.height / 15;
+let blockPadding = (canvas.width + canvas.height) / 80;
+let blockOffsetTop = canvas.height / 10;
+let blockOffsetLeft = canvas.width / 16;
 //スコアとライフの初期値
-var score = 0;
-var lives = 3;
+let score = 0;
+let lives = 3;
 
 var blocks = [];
 for (var c = 0; c < blockColumnCount; c++) {
@@ -38,7 +38,7 @@ for (var c = 0; c < blockColumnCount; c++) {
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false);
+//document.addEventListener("mousemove", mouseMoveHandler, false);
 
 //矢印キーで操作
 function keyDownHandler(e) {
@@ -57,6 +57,7 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
+/*
 //マウスでパドルを操作
 function mouseMoveHandler(e) {
     var relativeX = e.clientX - canvas.offsetLeft;
@@ -64,6 +65,7 @@ function mouseMoveHandler(e) {
         paddleX = relativeX - paddleWidth / 2;
     }
 }
+*/
 //衝突判定
 function collisionDetection() {
     for (var c = 0; c < blockColumnCount; c++) {
@@ -119,13 +121,13 @@ function drawblocks() {
 //スコアを表示する
 function drawScore() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#111111";
     ctx.fillText("Score: " + score, 8, 20);
 }
 //ライフを表示する
 function drawLives() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#111111";
     ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
 }
 
@@ -144,7 +146,7 @@ function draw() {
     if (y + dy < ballRadius) {
         dy = -dy;
     }
-    else if (y + dy + ballRadius > canvas.height - ballRadius) {
+    else if (y + dy > canvas.height - ballRadius * 2.5) {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
         }
@@ -157,18 +159,18 @@ function draw() {
             else {
                 x = canvas.width / 2;
                 y = canvas.height - 30;
-                dx = 3;
-                dy = -3;
+                dx = canvas.width / 240;;
+                dy = canvas.width / 240;;
                 paddleX = (canvas.width - paddleWidth) / 2;
             }
         }
     }
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 7;
+        paddleX += canvas.width / 46;
     }
     else if (leftPressed && paddleX > 0) {
-        paddleX -= 7;
+        paddleX -= canvas.width / 46;
     }
 
     x += dx;
