@@ -70,7 +70,7 @@ function collisionDetection() {
         for (var r = 0; r < blockRowCount; r++) {
             var b = blocks[c][r];
             if (b.status == 1) {
-                if (x > b.x && x < b.x + blockWidth && y > b.y && y < b.y + blockHeight) {
+                if (x + ballRadius > b.x && x - ballRadius < b.x + blockWidth && y + ballRadius > b.y && y - ballRadius < b.y + blockHeight) {
                     dy = -dy;
                     b.status = 0;
                     score++;
