@@ -4,13 +4,17 @@ const canvas = document.getElementById("myCanvas");
 //2Dで描画するための変数をctxとする
 const ctx = canvas.getContext("2d");
 
+let state = 0;
 //ボールの初期値
+
 var ballRadius = canvas.width / 100;
 var x = canvas.width / 2;
 var y = canvas.height - 30;
 var dx = canvas.width / 240;
 var dy = canvas.width / 240;
+
 //パドルの初期値
+
 let paddleHeight = canvas.height / 48;
 let paddleWidth = canvas.width / 6.4;
 let paddleX = (canvas.width - paddleWidth) / 2;
@@ -177,5 +181,27 @@ function draw() {
     y += dy;
     requestAnimationFrame(draw);
 }
+//タイトル
+function title() {
+    ctx.font = "96px Courier";
+    ctx.fillStyle = "#111111";
+    ctx.fillText("ブロック崩し", (canvas.width / 2) - (96 * 3), canvas.height / 2);
+}
+function message() {
+    ctx.font = "32px Courier";
+    ctx.fillStyle = "#111111";
+    ctx.fillText("Press S Key", (canvas.width / 2) - (16 * 10), canvas.height / 4 * 3);
+}
 
-draw();
+function start() {
+    title();
+    message();
+    document.addEventListener('keydown', event => {
+        if (event.key === "s") {
+            draw();
+        }
+    });
+}
+
+start();
+
